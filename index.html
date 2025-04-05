@@ -136,24 +136,10 @@
     }
 
     /* Media Queries for responsiveness */
-    @media (max-width: 768px) {
-      .day-box {
-        width: 100px;
-        height: 100px;
-        font-size: 18px;
-      }
+    @media (min-width: 350px) and (max-width: 999px) {
 
-      .workout-text {
-        max-width: 90%;
-        padding: 20px;
-      }
+     
 
-      .exercise-item {
-        font-size: 14px;
-      }
-    }
-
-    @media (max-width: 480px) {
       body {
         padding: 10px;
       }
@@ -163,25 +149,49 @@
       }
 
       .day-box {
-        width: 80px;
-        height: 80px;
-        font-size: 16px;
+        width: 150px;
+        height: 150px;
+        font-size: 27px;
+
       }
 
-      .reset-btn {
-        width: 20px;
-        height: 20px;
-        font-size: 12px;
+      #reset-btn-bottom {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background: #ff4c4c;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 60px;
+        height: 62px;
+        font-size: 35px;
+        cursor: pointer;
       }
 
       .workout-text {
-        padding: 15px;
-        font-size: 16px;
+        padding: 17px;
+        font-size: 32px;
       }
 
       .exercise-item {
-        font-size: 12px;
-      }
+        font-size: 30px;
+    }
+
+      .reset-btn {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    background: #ff4c4c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 16px;
+    cursor: pointer;
+}
+      
     }
   </style>
 </head>
@@ -190,12 +200,13 @@
   <h1>Workout</h1>
 
   <!-- Completed Days Counter -->
-  <div id="completedDaysCounter" style="font-size: 20px; margin-bottom: 20px;">
+  <div id="completedDaysCounter" style="font-size: 29px; margin-bottom: 38px;">
     Days Completed: <span id="completedDays">0</span>
   </div>
 
   <!-- Reset Completed Days Button -->
   <button class="reset-btn" onclick="resetAllDays()">⭯</button>
+  <button id="reset-btn-bottom" class="reset-btn" onclick="resetAllDays()">⭯</button>
 
   <div class="days-container" id="days">
     <div class="day-box" id="day1" onclick="showWorkout(1)">
