@@ -149,9 +149,9 @@
       }
 
       .day-box {
-        width: 150px;
-        height: 150px;
-        font-size: 27px;
+        width: 170px;
+        height: 200px;
+        font-size: 29px;
 
       }
 
@@ -175,12 +175,12 @@
       }
 
       .exercise-item {
-        font-size: 30px;
+        font-size: 28px;
     }
 
       .reset-btn {
         position: absolute;
-        bottom: 8px;
+        bottom: 5px;
         left: 8px;
         background: #ff4c4c;
         color: white;
@@ -222,40 +222,44 @@
 
   <div class="days-container" id="days">
     <div class="day-box" id="day1" onclick="showWorkout(1)">
-      Day 1
-      <button class="reset-btn" onclick="resetDay(1, event)">X</button>
+     Chest and Shoulders
+      <button class="reset-btn" onclick="resetDay(1, event)">x</button>
     </div>
     <div class="day-box" id="day2" onclick="showWorkout(2)">
-      Day 2
-      <button class="reset-btn" onclick="resetDay(2, event)">X</button>
+      Biceps, Triceps and Abs
+      <button class="reset-btn" onclick="resetDay(2, event)">x</button>
     </div>
     <div class="day-box" id="day3" onclick="showWorkout(3)">
-      Day 3
-      <button class="reset-btn" onclick="resetDay(3, event)">X</button>
+     Back and Legs
+      <button class="reset-btn" onclick="resetDay(3, event)">x</button>
     </div>
     <div class="day-box" id="day4" onclick="showWorkout(4)">
-      Day 4
-      <button class="reset-btn" onclick="resetDay(4, event)">X</button>
+      Chest, Biceps and Shoulders
+      <button class="reset-btn" onclick="resetDay(4, event)">x</button>
     </div>
     <div class="day-box" id="day5" onclick="showWorkout(5)">
-      Day 5
-      <button class="reset-btn" onclick="resetDay(5, event)">X</button>
+      Abs and Triceps
+      <button class="reset-btn" onclick="resetDay(5, event)">x</button>
     </div>
   </div>
 
   <div class="workout-container" id="workout">
     <div class="workout-text" id="workoutText"></div>
-    <button class="back-btn" onclick="goBack()">Back</button>
+    <button class="back-btn" onclick="goBack()">Go Back</button>
   </div>
 
   <script>
      const workouts = {
       1: [
-        { name: "Push-ups", sets: 3, reps: 10 },
-        { name: "Bench Press", sets: 4, reps: 8 },
-        { name: "Dumbbell Flys", sets: 3, reps: 12 },
-        { name: "Dumbbell Flys", sets: 3, reps: 12 },
-        { name: "Triceps Dips", sets: 3, reps: 10 }
+        { name: "Bench Press", sets: 3, reps: 10 },
+        { name: "Bench Cable Crossover", sets: 4, reps: 8 },
+        { name: "Push ups", sets: 3, reps: 12 },
+        { name: "Machine fly", sets: 3, reps: 12 },
+        { name: "SHOULDERS"},
+        { name: "Overhead Press", sets: 3, reps: 12 },
+        { name: "Face pull", sets: 3, reps: 12 },
+        { name: "Side Lateral Raise", sets: 3, reps: 12 },
+        { name: "Reverse Peck fly", sets: 3, reps: 12 },
       ],
       2: [
         { name: "Treadmill", sets: 1, reps: 20 },
@@ -300,7 +304,7 @@
     function showWorkout(day) {
       currentDay = day;
       const workoutText = document.getElementById('workoutText');
-      workoutText.innerHTML = `<strong>Day ${day} Workout:</strong><br>`;
+      workoutText.innerHTML = `<strong>Day ${day}:</strong><br>`;
 
       const checkedExercises = JSON.parse(localStorage.getItem(`day${day}CheckedExercises`)) || [];
 
