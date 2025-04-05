@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Workout Days</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #1e1e2f;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      margin-bottom: 40px;
+      font-size: 36px;
+    }
+
+    .days-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      animation: fadeIn 1s ease;
+    }
+
+    .day-box {
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(135deg, #4a90e2, #357ABD);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: bold;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .day-box:hover {
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .completed::after {
+      content: "✔";
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      background: #0f0;
+      color: #000;
+      font-size: 16px;
+      padding: 2px 6px;
+      border-radius: 50%;
+    }
+
+    .reset-btn {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      background: #ff4c4c;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .workout-container {
+      margin-top: 40px;
+      display: none;
+      animation: fadeSlideIn 0.8s ease;
+    }
+
+    .workout-text {
+      font-size: 18px;
+      background: #2b2b45;
+      padding: 25px;
+      border-radius: 12px;
+      max-width: 420px;
+      margin: 0 auto;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+      line-height: 1.6;
+    }
+
+    .exercise-item {
+      margin: 10px 0;
+      padding: 10px;
+      background: #3a3c56;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .exercise-item.checked {
+      background: #2e844a;
+      text-decoration: line-through;
+    }
+
+    .back-btn {
+      margin-top: 20px;
+      padding: 10px 24px;
+      background: #ff4c60;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+
+    .back-btn:hover {
+      background: #e84350;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Media Queries for responsiveness */
+    @media (max-width: 768px) {
+      .day-box {
+        width: 100px;
+        height: 100px;
+        font-size: 18px;
+      }
+
+      .workout-text {
+        max-width: 90%;
+        padding: 20px;
+      }
+
+      .exercise-item {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .day-box {
+        width: 80px;
+        height: 80px;
+        font-size: 16px;
+      }
+
+      .reset-btn {
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
+      }
+
+      .workout-text {
+        padding: 15px;
+        font-size: 16px;
+      }
+
+      .exercise-item {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Workout</h1>
+
+  <!-- Completed Days Counter -->
+  <div id="completedDaysCounter" style="font-size: 20px; margin-bottom: 20px;">
+    Days Completed: <span id="completedDays">0</span>
+  </div>
+
+  <!-- Reset Completed Days Button -->
+  <button class="reset-btn" onclick="resetAllDays()">⭯</button>
+
+  <div class="days-container" id="days">
+    <div class="day-box" id="day1" onclick="showWorkout(1)">
+      Day 1
+      <button class="reset-btn" onclick="resetDay(1, event)">⟳</button>
+    </div>
+    <div class="day-box" id="day2" onclick="showWorkout(2)">
+      Day 2
+      <button class="reset-btn" onclick="resetDay(2, event)">⟳</button>
+    </div>
+    <div class="day-box" id="day3" onclick="showWorkout(3)">
+      Day 3
+      <button class="reset-btn" onclick="resetDay(3, event)">⟳</button>
+    </div>
+    <div class="day-box" id="day4" onclick="showWorkout(4)">
+      Day 4
+      <button class="reset-btn" onclick="resetDay(4, event)">⟳</button>
+    </div>
+    <div class="day-box" id="day5" onclick="showWorkout(5)">
+      Day 5
+      <button class="reset-btn" onclick="resetDay(5, event)">⟳</button>
+    </div>
+  </div>
+
+  <div class="workout-container" id="workout">
+    <div class="workout-text" id="workoutText"></div>
+    <button class="back-btn" onclick="goBack()">Back</button>
+  </div>
+
+  <script>
+     const workouts = {
+      1: [
+        { name: "Push-ups", sets: 3, reps: 10 },
+        { name: "Bench Press", sets: 4, reps: 8 },
+        { name: "Dumbbell Flys", sets: 3, reps: 12 },
+        { name: "Dumbbell Flys", sets: 3, reps: 12 },
+        { name: "Triceps Dips", sets: 3, reps: 10 }
+      ],
+      2: [
+        { name: "Treadmill", sets: 1, reps: 20 },
+        { name: "Jump Rope", sets: 4, reps: 15 },
+        { name: "Burpees", sets: 3, reps: 12 },
+        { name: "Squats", sets: 3, reps: 15 }
+      ],
+      3: [
+        { name: "Yoga", sets: 1, reps: 30 }, 
+        { name: "Stretching", sets: 1, reps: 30 },
+        { name: "Breathing Exercises", sets: 1, reps: 15 },
+        { name: "Meditation", sets: 1, reps: 30 }
+      ],
+      4: [
+        { name: "Deadlifts", sets: 3, reps: 8 },
+        { name: "Pull-ups", sets: 3, reps: 10 },
+        { name: "Bicep Curls", sets: 3, reps: 12 },
+        { name: "Shoulder Press", sets: 3, reps: 10 }
+      ],
+      5: [
+        { name: "HIIT Circuit", sets: 1, reps: 10 },
+        { name: "Mountain Climbers", sets: 3, reps: 20 },
+        { name: "Lunges", sets: 3, reps: 15 },
+        { name: "Plank", sets: 1, reps: 60 }
+      ]
+    };
+
+    let completedDays = 0;
+    let currentDay = null;
+
+    // Load saved progress
+    window.onload = () => {
+      for (let i = 1; i <= 5; i++) {
+        if (localStorage.getItem(`day${i}`) === 'completed') {
+          document.getElementById(`day${i}`).classList.add('completed');
+          completedDays++;
+        }
+      }
+      updateCompletedDaysCounter();
+    };
+
+    function showWorkout(day) {
+      currentDay = day;
+      const workoutText = document.getElementById('workoutText');
+      workoutText.innerHTML = `<strong>Day ${day} Workout:</strong><br>`;
+
+      const checkedExercises = JSON.parse(localStorage.getItem(`day${day}CheckedExercises`)) || [];
+
+      workouts[day].forEach((exercise, index) => {
+        const div = document.createElement('div');
+        div.classList.add('exercise-item');
+        div.textContent = `${exercise.name} - ${exercise.sets} sets of ${exercise.reps}`;
+
+        // If this exercise is checked, mark it as checked
+        if (checkedExercises.includes(index)) {
+          div.classList.add('checked');
+        }
+
+        div.onclick = () => toggleExercise(index, div);
+        workoutText.appendChild(div);
+      });
+
+      document.getElementById('workout').style.display = 'block';
+
+      // Mark the day as completed only once
+      if (!localStorage.getItem(`day${day}`)) {
+        localStorage.setItem(`day${day}`, 'completed');
+        document.getElementById(`day${day}`).classList.add('completed');
+        completedDays++;
+        updateCompletedDaysCounter();
+      }
+    }
+
+    function toggleExercise(index, div) {
+      div.classList.toggle('checked');
+      const checkedExercises = JSON.parse(localStorage.getItem(`day${currentDay}CheckedExercises`)) || [];
+      
+      if (div.classList.contains('checked')) {
+        checkedExercises.push(index);
+      } else {
+        const i = checkedExercises.indexOf(index);
+        if (i !== -1) checkedExercises.splice(i, 1);
+      }
+
+      localStorage.setItem(`day${currentDay}CheckedExercises`, JSON.stringify(checkedExercises));
+    }
+
+    function goBack() {
+      document.getElementById('workout').style.display = 'none';
+      document.getElementById('days').style.display = 'flex';
+    }
+
+    // Update the displayed counter for completed days
+    function updateCompletedDaysCounter() {
+      document.getElementById('completedDays').innerText = completedDays;
+    }
+
+    // Reset day completion (without affecting the total counter)
+    function resetDay(day, event) {
+      event.stopPropagation(); // Prevent the click event from bubbling up to showWorkout
+      localStorage.removeItem(`day${day}`);
+      document.getElementById(`day${day}`).classList.remove('completed');
+      localStorage.removeItem(`day${day}CheckedExercises`);
+    }
+
+    // Reset all days and the completed counter
+    function resetAllDays() {
+      completedDays = 0;
+      localStorage.clear();
+      updateCompletedDaysCounter();
+
+      for (let i = 1; i <= 5; i++) {
+        document.getElementById(`day${i}`).classList.remove('completed');
+      }
+    }
+  </script>
+
+</body>
+</html>
